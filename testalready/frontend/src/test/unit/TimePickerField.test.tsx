@@ -7,40 +7,40 @@ import { renderWithForm } from '@/test/__utils__/renderWithForm'
 type FormModel = { start: string }
 
 describe('TimePickerField (unit)', () => {
-  it('renderiza com valor inicial vazio e permite selecionar horário', async () => {
+  it('renders with empty initial value and allows time selection', async () => {
     const user = userEvent.setup()
     renderWithForm<FormModel>((methods) => (
-      <TimePickerField control={methods.control} name="start" label="Início" description="Selecione um horário" />
+      <TimePickerField control={methods.control} name="start" label="Start" description="Select a time" />
     ), { defaultValues: { start: '' } })
 
-    const input = screen.getByLabelText('Início', { selector: 'input' }) as HTMLInputElement
+    const input = screen.getByLabelText('Start', { selector: 'input' }) as HTMLInputElement
     expect(input.value).toBe('')
 
     await user.type(input, '09:30')
     expect(input.value).toBe('09:30')
   })
 
-  it('mostra erro quando fornecido', () => {
+  it('shows error when provided', () => {
     renderWithForm<FormModel>((methods) => (
       <TimePickerField
         control={methods.control}
         name="start"
-        label="Início"
-        error={{ type: 'manual', message: 'Horário inválido' } as any}
+        label="Start"
+        error={{ type: 'manual', message: 'Invalid time' } as any}
       />
     ))
-    expect(screen.getByText('Horário inválido')).toBeInTheDocument()
+    expect(screen.getByText('Invalid time')).toBeInTheDocument()
   })
 
-  it('mostra descrição quando não há erro', () => {
+  it('shows description when there is no error', () => {
     renderWithForm<FormModel>((methods) => (
       <TimePickerField
         control={methods.control}
         name="start"
-        label="Início"
-        description="Formato 24h"
+        label="Start"
+        description="24h format"
       />
     ))
-    expect(screen.getByText('Formato 24h')).toBeInTheDocument()
+    expect(screen.getByText('24h format')).toBeInTheDocument()
   })
 })

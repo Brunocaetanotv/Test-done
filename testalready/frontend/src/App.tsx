@@ -9,7 +9,7 @@ import { Button } from './components/ui/button';
 import './App.css';
 
 function App() {
-  // Configuración del formulario con zod
+  // Form configuration with zod
   const {
     control,
     handleSubmit,
@@ -23,20 +23,20 @@ function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // Función al enviar el formulario
+  // Function when submitting the form
   const onSubmit = async (data: SaveDateFormValues) => {
     setLoading(true);
     
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/save-date/', data);
       if(response.status === 201){
-        setSuccessMessage(response.data.message); // mostrar mensaje
+        setSuccessMessage(response.data.message); // show message
         console.log('Form submitted successfully:', response.data);
-        reset(); // limpia el formulario
+        reset(); // clear form
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      // Aquí puedes mostrar una notificación de error
+      // Here you can show an error notification
     } finally {
       setLoading(false);
     }

@@ -22,21 +22,21 @@ function TestEventTimesForm() {
 }
 
 describe('EventTimesField (integration)', () => {
-  it('adiciona e remove eventos, e submete com dados corretos', async () => {
+  it('adds and removes events, and submits with correct data', async () => {
     const user = userEvent.setup()
     render(<TestEventTimesForm />)
 
-    // Mensagem inicial
+    // Initial message
     expect(screen.getByText(/No event times added/i)).toBeInTheDocument()
 
-    // Adiciona dois horários
+    // Add two times
     await user.click(screen.getByRole('button', { name: /Add Time/i }))
     await user.click(screen.getByRole('button', { name: /Add Time/i }))
 
     const groups = screen.getAllByRole('group', { hidden: true })
     expect(groups.length).toBeGreaterThanOrEqual(2)
 
-    // Preenche o primeiro bloco
+    // Fill the first block
     const firstBlock = groups[0]
     const labelInput = within(firstBlock).getByPlaceholderText('Label')
     const timeInput = within(firstBlock).getByLabelText('Time', { selector: 'input' })
@@ -44,14 +44,14 @@ describe('EventTimesField (integration)', () => {
     await user.type(labelInput, 'Ceremony')
     await user.type(timeInput, '18:00')
 
-    // Remove o segundo bloco
+    // Remove the second block
     const removeButtons = screen.getAllByRole('button', { name: /Trash2/i })
-    await user.click(removeButtons[0]) // remove um
+    await user.click(removeButtons[0]) // remove one
 
-    // Salvar
+    // Save
     await user.click(screen.getByText('Salvar'))
 
-    // Não temos acesso ao onSubmit aqui, mas podemos validar que sobrou um bloco e os campos ficaram preenchidos.
+    // We don't have access to onSubmit here, but we can validate that one block remains and fields are filled.
     expect((labelInput as HTMLInputElement).value).toBe('Ceremony')
     expect((timeInput as HTMLInputElement).value).toBe('18:00')
   })

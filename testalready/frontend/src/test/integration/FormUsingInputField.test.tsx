@@ -20,7 +20,7 @@ function TestForm({ onSubmit }: { onSubmit: SubmitHandler<FormModel> }) {
 }
 
 describe('Form integration with InputField', () => {
-  it('preenche campos e envia com os valores corretos', async () => {
+  it('fills fields and submits with correct values', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
     render(<TestForm onSubmit={onSubmit} />)
@@ -31,7 +31,7 @@ describe('Form integration with InputField', () => {
     await user.type(email, 'user@test.dev')
     await user.type(pwd, '123456')
 
-    // testa toggle do password pra garantir integração
+    // tests password toggle to ensure integration
     const toggle = screen.getByRole('button')
     await user.click(toggle)
     expect((pwd as HTMLInputElement).type).toBe('text')
