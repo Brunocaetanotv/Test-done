@@ -2,40 +2,30 @@ name: Backend Tests
 
 on:
   push:
-    branches: [ "main", "staging" ]
+    branches: [ "**" ]  # Run on all branches
   pull_request:
-    branches: [ "main", "staging" ]
+    branches: [ "**" ]  # Run on all branches
 
 jobs:
   test-backend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do código
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Configurar Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.13'
 
-      - name: Instalar pipenv e dependências
+      - name: Install pipenv and dependencies
         run: |
           cd backend
           python -m pip install --upgrade pip
           pip install pipenv
-          pipenv install --dev
+          pipenv install
 
-      - name: Rodar testes de modelo
+      - name: Run all tests
         run: |
           cd backend
-          pipenv run python manage.py test savedate.tests.SaveDateModelTest
-
-      - name: Rodar testes de serializers
-        run: |
-          cd backend
-          pipenv run python manage.py test savedate.tests.SaveDateSerializerTest
-
-      - name: Rodar testes de API
-        run: |
-          cd backend
-          pipenv run python manage.py test savedate.tests.SaveDateAPITest
+          pipenv run python manage.py test

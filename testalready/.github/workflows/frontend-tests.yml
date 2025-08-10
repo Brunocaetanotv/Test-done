@@ -1,32 +1,32 @@
-# name: Frontend Tests
+name: Frontend Tests
 
-# on:
-#   push:
-#     branches: [ "main", "staging" ]
-#   pull_request:
-#     branches: [ "main", "staging" ]
+on:
+  push:
+    branches: [ "**" ]  # Run on all branches
+  pull_request:
+    branches: [ "**" ]  # Run on all branches
 
-# jobs:
-#   test-frontend:
-#     runs-on: ubuntu-latest
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
 
-#     defaults:
-#       run:
-#         working-directory: frontend # agora não precisa usar cd em cada passo
+    defaults:
+      run:
+        working-directory: frontend
 
-#     steps:
-#       - name: Checkout do código
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Configurar Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: '18'
-#           cache: 'npm'
-#           cache-dependency-path: frontend/package-lock.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
-#       - name: Instalar dependências
-#         run: npm install
+      - name: Install dependencies
+        run: npm install
 
-#       - name: Rodar testes com Vitest
-#         run: npx vitest run --passWithNoTests
+      - name: Run tests with Vitest
+        run: npm test
