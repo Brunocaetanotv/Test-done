@@ -1,5 +1,8 @@
 name: Full Stack Tests
 
+# This workflow runs tests for both backend and frontend
+# Updated to fix infinite loop issues
+
 on:
   push:
     branches: [ "**" ]
