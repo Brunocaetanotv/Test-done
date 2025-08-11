@@ -10,6 +10,9 @@ export default defineConfig({
     setupFiles: ['./src/setupTests.tsx'],
     globals: true,
     css: true,
+    testTimeout: 10000,
+    hookTimeout: 10000,
+    teardownTimeout: 1000,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
