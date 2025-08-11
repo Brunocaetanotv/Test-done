@@ -1,3 +1,6 @@
+# SaveDate API Views - Handles event creation and listing
+# Updated for final version with complete testing and automation
+
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
